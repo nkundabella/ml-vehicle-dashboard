@@ -6,7 +6,7 @@ import pandas as pd
 
 def frequency_table(df):
     manufacturer_counts = df['manufacturer'].value_counts().reset_index()
-    manufacturer_counts.columns = ['Manufacturer', 'Count']
+    # manufacturer_counts.columns = ['Manufacturer', 'Count']
 
     table_html = manufacturer_counts.to_html(
         classes="table table-bordered table-striped table-sm",
@@ -14,3 +14,19 @@ def frequency_table(df):
         justify='center'
     )
     return table_html
+
+
+def cars_over_5000(df):
+    cars = df[df['selling_price'] > 5000]
+    return cars.to_html(classes="table table-bordered table-striped table-sm")
+
+
+def total_selling_price_by_transmission(df):
+
+    grouped = df.groupby(['manufacturer', 'transmission'])['selling_price'].sum()
+
+    table = grouped.to_frame(name='Total Selling Price')
+
+    table.index.names = ['Manufacturer', 'Transmission']
+
+    return table.to_html(classes="table table-bordered table-striped table-sm")
