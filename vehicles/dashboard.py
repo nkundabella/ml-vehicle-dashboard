@@ -22,11 +22,15 @@ def cars_over_5000(df):
 
 
 def total_selling_price_by_transmission(df):
-
-    grouped = df.groupby(['manufacturer', 'transmission'])['selling_price'].sum()
-
-    table = grouped.to_frame(name='Total Selling Price')
-
+    table = df.groupby(['manufacturer', 'transmission']).agg(
+        Total_Price=('selling_price', 'sum'),
+        Average_Price=('selling_price', 'mean'),
+        Car_Count=('selling_price', 'count'),
+        Min_Price=('selling_price', 'min'),
+        Max_Price=('selling_price', 'max'),
+    )
     table.index.names = ['Manufacturer', 'Transmission']
-
-    return table.to_html(classes="table table-bordered table-striped table-sm")
+    return table.to_html(
+        classes="table table-bordered table-striped table-sm",
+        float_format="%.2f"
+    )

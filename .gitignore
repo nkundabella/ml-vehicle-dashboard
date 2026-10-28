@@ -6,11 +6,11 @@ venv/
 
 # Local Django data and configuration
 db.sqlite3
-.env
-.env.*
 !.env.example
 staticfiles/
 
 # Dataset contains client-related columns; keep local until its provenance
 # and permission to redistribute have been confirmed.
 dummy_data/vehicles_ml_dataset.csv
+config.bat
+node_modules
